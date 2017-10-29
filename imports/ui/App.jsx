@@ -5,18 +5,29 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Games } from '../api/games.js';
 
-import BoardContainer from "./BoardContainer.jsx";
+import Game from "./Game.jsx";
+import CreateGame from "./CreateGame.jsx";
 import Leaderboard from "./Leaderboard.jsx";
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
  
 class App extends Component {
     constructor(props){
         super(props);
-        this.height = 600;
-        this.width = 600;
         this.state = {
-            activeGameId: undefined
+            activeGameId: undefined,
+            creating: true
         }
+        this.handler = this.handler.bind(this)
+    }
+
+    handler(someArg) {
+        this.setState({
+          activeGameId: someArg
+        });
+
+        console.log(someArg);
+
+        alert(typeof(someArg));
     }
     
     render(){
@@ -48,12 +59,19 @@ class App extends Component {
                 <hr className="header-bar" />
 
 
-
-                { this.props.currentUser ?
-                    <BoardContainer width={this.width} height={this.height} potentialGame={this.props.potentialGame}/> :
-                    <h3 className="Invitation">SIGN IN TO CREATE / PLAY GAMES!</h3>
+                { this.state.creating ?
+                    <CreateGame/> :
+                    <div>
+                        { this.props.currentUser ?
+                            <a href="#"> CREATE NEW GAME</a> :
+                            <h3 className="Invitation">SIGN IN TO CREATE / PLAY GAMES!</h3>
+                        }
+                        { this.state.activeGameId ?
+                            <Game activeGameId={this.state.activeGameId} /> : 
+                            <Leaderboard games={this.props.games} handler={this.handler}/>
+                        }
+                    </div>
                 }
-                <Leaderboard games={this.props.games}/>
             </div>
         );
     }
@@ -61,14 +79,12 @@ class App extends Component {
 
 App.propTypes = {
   games: PropTypes.array.isRequired,
-  currentUser: PropTypes.object,
-  potentialGame: PropTypes.object,
+  currentUser: PropTypes.object
 };
 
 export default createContainer((props) => {
   return {
     games: Games.find({  }, { sort: { score: -1 }, limit: 10 }).fetch(),
-    currentUser: Meteor.user(),
-    potentialGame: Games.findOne({ users: { $size: 1 }, gameOver: false })
+    currentUser: Meteor.user()
   };
 }, App);

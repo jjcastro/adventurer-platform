@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import GameOver from "./GameOver";
-import Board from "./Board";
 
 import { createContainer } from 'meteor/react-meteor-data';
 
@@ -16,6 +15,7 @@ class GameBox extends Component {
     }
 
     render(){
+        var handler = this.props.handler;
         return(
             <div className="game-box">
               <h3>//// {this.props.game.name} ////</h3>
@@ -25,6 +25,7 @@ class GameBox extends Component {
                 {[...Array(this.props.game.score)].map((x, i) =>
                   <span key={i}>☆</span>
                 )}
+                <button onClick={() => handler(this.props.game._id)}>Push me</button>
               </div>
             </div>
         );
@@ -32,6 +33,7 @@ class GameBox extends Component {
 }
 GameBox.propTypes = {
     game: PropTypes.object,
+    handler: PropTypes.func.isRequired,
 };
 
 export default GameBox;
