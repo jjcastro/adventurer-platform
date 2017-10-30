@@ -10,12 +10,15 @@ class Leaderboard extends Component {
       var handler = this.props.handler;
         return (
           <div>
-            <h2>LATEST GAMES</h2>
-            <div className="game-box-container">
-              {this.props.games.map(function(listValue){
-                return <GameBox key={listValue._id} game={listValue} handler={handler}/>;
-              })}
+            <div>
+              <h2>LATEST GAMES</h2>
+              <div className="game-box-container">
+                {this.props.games.map(function(listValue){
+                  return <GameBox key={listValue._id} game={listValue} handler={handler}/>;
+                })}
+              </div>
             </div>
+            <div className="clearfix"></div>
           </div>
         );
     }

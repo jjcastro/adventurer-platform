@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import GameOver from "./GameOver";
-import Scene from "./Scene";
 
 import { createContainer } from 'meteor/react-meteor-data';
 

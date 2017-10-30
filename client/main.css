@@ -3,9 +3,17 @@
 }
 
 body {
-    font-family: 'Consolas';
-    background-color: black;
+    font-family: "ocr-a-std";
+    background-color: #133409;
     color: #00FF00;
+    margin: 0;
+}
+
+.marquee-bkg {
+    height: 20px;
+    background-color: #00FF00;
+    color: #133409;
+    font-size: 1.2em;
 }
 
 h1, h2, h3, h4 {
@@ -14,12 +22,14 @@ h1, h2, h3, h4 {
 
 header {
     width: 600px;
-    margin: 40px auto;
+    margin: 50px auto;
 }
 
 .login {
-    float: left;
-    margin-left: 20px; 
+    position: absolute;
+    left: 20px; 
+    top: 20px;
+    width: 120px;
 }
 
 hr.header-bar {
@@ -42,6 +52,66 @@ div.latest-games {
     padding: 0 10px 10px;
 }
 
+input[type=text] {
+    background-color: #133409;
+    color: #00FF00;
+    font-family: "ocr-a-std";
+    font-size: 0.8em;
+    border: 2px solid  #00FF00;
+    height: 30px;
+    margin: 5px;
+    /*margin-top: 10px;*/
+    /*padding-bottom: 10px;*/
+}
+
+textarea {
+    background-color: #133409;
+    color: #00FF00;
+    font-family: "ocr-a-std";
+    font-size: 0.8em;
+    border: 2px solid  #00FF00;
+    height: 100px;
+    margin: 5px;
+    /*margin-top: 10px;*/
+    /*padding-bottom: 10px;*/
+}
+
+select {
+   -webkit-appearance: none; 
+   -moz-appearance: none;
+   appearance: none;
+   background-color: #133409;
+    color: #00FF00;
+    font-family: "ocr-a-std";
+    font-size: 0.8em;
+    border: 2px solid  #00FF00;
+    height: 30px;
+    border-radius: 0;
+    padding: 0 10px;
+}
+
+button {
+    font-size: 0.9em;
+    border: 2px solid  #00FF00;
+    background-color: #00FF00;
+    margin: 5px;
+    height: 30px;
+    align-items: none;
+    font-family: "ocr-a-std";
+}
+
+form {
+    /*font-size: 1.5em;*/
+}
+
+.app-body {
+    padding: 10px;
+}
+
+form div.scene {
+    margin-bottom: 50px;
+}
+
 .game-box h3 {
     text-transform: uppercase;
 }
@@ -53,4 +123,13 @@ div.latest-games {
 
 .game-box .score span {
     padding-right: 5px;
+}
+
+footer {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.clearfix {
+    clear: both;
 }

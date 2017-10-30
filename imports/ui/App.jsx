@@ -15,9 +15,14 @@ class App extends Component {
         super(props);
         this.state = {
             activeGameId: undefined,
-            creating: true
+            creating: false
         }
         this.handler = this.handler.bind(this)
+        this.create = this.create.bind(this)
+    }
+
+    componentDidMount() {
+        // Marquee('h3');
     }
 
     handler(someArg) {
@@ -28,6 +33,10 @@ class App extends Component {
         console.log(someArg);
 
         alert(typeof(someArg));
+    }
+
+    create() {
+      this.setState({ creating: true });
     }
     
     render(){
@@ -56,23 +65,42 @@ class App extends Component {
                 `}</pre>
                 </header>
                 
-                <hr className="header-bar" />
+                <div className="marquee-bkg"><marquee>WHATEVER OMG ILY LMAO WTF PPL IDK TBH BTW THX SMH FFS AMA FML TBT JK IMO YOLO ROFL MCM IKR FYI BRB GG IDC TGIF NSFW ICYMI STFU WCW IRL</marquee></div>
 
-
+                <div className="app-body">
                 { this.state.creating ?
                     <CreateGame/> :
                     <div>
                         { this.props.currentUser ?
-                            <a href="#"> CREATE NEW GAME</a> :
+                            <button onClick={this.create}> CREATE NEW GAME</button> :
                             <h3 className="Invitation">SIGN IN TO CREATE / PLAY GAMES!</h3>
                         }
+                        <hr className="header-bar"/>
                         { this.state.activeGameId ?
                             <Game activeGameId={this.state.activeGameId} /> : 
                             <Leaderboard games={this.props.games} handler={this.handler}/>
                         }
                     </div>
                 }
+                </div>
+                <footer>
+                <pre>{`
+        =/\                 /\=
+         / \\'._   (\\_/)   _.'/ \\       (_                   _)
+        / .''._'--(o.o)--'_.''. \\       /\\                 /\\
+       /.' _/ |\`'=/ " \\='\`| \\_ \`.\\     / \\'._   (\\_/)   _.'/ \\
+      /\` .' \`\\;-,'\\___/',-;/\` '. '\\   /_.''._'--('.')--'_.''._\\
+     /.-' jgs   \`\\(-V-)/\`       \`-.\\  | \\_ / \`;=/ " \\=;\` \\ _/ |
+                  "   "               \\/  \`\\__|\`\\___/\`|__/\`  \\/
+                   (,_    ,_,    _,)   \`       \\(/|\\)/       \`
+                   /|\\\`-._( )_.-'/|\\            " \` "
+                  / | \\\`'-/ \\-'\`/ | \\         _   ,_,   _
+                 /  |_.'-.\\ /.-'._|  \\       / \`'=) (='\` \\
+                /_.-'      "      \`-._\\     /.-.-.\\ /.-.-.\\
+            `}</pre>
+            </footer>
             </div>
+            
         );
     }
 }

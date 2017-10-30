@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import GameOver from "./GameOver";
 
 import { createContainer } from 'meteor/react-meteor-data';
 
@@ -25,7 +24,7 @@ class GameBox extends Component {
                 {[...Array(this.props.game.score)].map((x, i) =>
                   <span key={i}>☆</span>
                 )}
-                <button onClick={() => handler(this.props.game._id)}>Push me</button>
+                <button onClick={() => handler(this.props.game._id)}>PLAY</button>
               </div>
             </div>
         );
