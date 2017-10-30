@@ -55,7 +55,7 @@ class Game extends Component {
                 <ul className="scene-options">
                 {this.state.currentScene.options.map(function(option, i){
                     return(<li key={i}>
-                        <a href="#" onClick={() => handler(option.to)}>{option.name}</a>
+                        <button onClick={() => handler(option.to)}>{option.name}</button>
                     </li>);
                 })}
                 </ul>
