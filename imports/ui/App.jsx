@@ -24,9 +24,11 @@ class App extends Component {
     }
 
     handleVote(evt) {
-      Games.update(this.state.activeGameId, {
-        $inc: { sum: parseInt(evt.target.value), votes: 1 },
-      });
+      // Games.update(this.state.activeGameId, {
+      //   $inc: { sum: parseInt(evt.target.value), votes: 1 },
+      // });
+
+      Meteor.call('games.addScore', this.state.activeGameId, newScore);
     }
 
     handler(someArg) {
@@ -42,7 +44,8 @@ class App extends Component {
     submit(game) {
       game.creator = this.props.currentUser.username;
       console.log(game);
-      var id = Games.insert(game);
+      // var id = Games.insert(game);
+      Meteor.call('games.insert', game);
       this.setState({ creating: false,
       activeGameId: undefined });
     }
@@ -119,6 +122,7 @@ App.propTypes = {
 };
 
 export default createContainer((props) => {
+  Meteor.subscribe('games');
   return {
     games: Games.find({  }, { sort: { score: -1 }, limit: 10 }).fetch(),
     currentUser: Meteor.user()

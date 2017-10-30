@@ -70,6 +70,7 @@ Game.propTypes = {
 };
 
 export default createContainer((props) => {
+  Meteor.subscribe('games');
   return {
     currentGame: Games.findOne(props.activeGameId),
   };
