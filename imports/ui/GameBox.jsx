@@ -26,7 +26,7 @@ class GameBox extends Component {
               <p><u>Author:</u> {this.props.game.creator}</p>
               <div className="score">
                 <h4>SCORE:</h4>
-                {[...Array(avg)].map((x, i) =>
+                {[...Array(parseInt(avg))].map((x, i) =>
                   <span key={i}>☆</span>
                 )}
                 <button onClick={() => handler(this.props.game._id)}>PLAY</button>
