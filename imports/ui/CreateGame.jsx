@@ -46,6 +46,8 @@ class CreateGame extends Component {
       }
     });
 
+    console.log(newScenes);
+
     this.setState({ scenes: newScenes });
   }
 
@@ -75,7 +77,7 @@ class CreateGame extends Component {
     this.setState({
       scenes: this.state.scenes.concat([{
         text: '',
-        options: [{ name: '' , to: ''}],
+        options: [{ name: '' , to: '0'}],
       }])
     });
   }
