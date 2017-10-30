@@ -15,13 +15,18 @@ class GameBox extends Component {
 
     render(){
         var handler = this.props.handler;
+        var votes = this.props.game.votes;
+        var sum = this.props.game.sum;
+        var avg = votes == 0 ? 0 : sum / votes;
+        console.log(avg);
         return(
             <div className="game-box">
               <h3>//// {this.props.game.name} ////</h3>
               <p>{this.props.game.description}</p>
+              <p><u>Author:</u> {this.props.game.creator}</p>
               <div className="score">
                 <h4>SCORE:</h4>
-                {[...Array(this.props.game.score)].map((x, i) =>
+                {[...Array(avg)].map((x, i) =>
                   <span key={i}>☆</span>
                 )}
                 <button onClick={() => handler(this.props.game._id)}>PLAY</button>

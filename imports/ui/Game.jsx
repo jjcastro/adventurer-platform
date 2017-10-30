@@ -32,17 +32,30 @@ class Game extends Component {
 
     render(){
         var handler = this.handler;
+        const handlerVote = this.props.handlerVote;
         return(
             <div>
-                <div>
+                <h3>You're playing: {this.props.currentGame.name}</h3>
+                <select onChange={handlerVote}>
+                    <option selected disabled>RATE GAME</option>
+                    <option value={5}>☆☆☆☆☆</option>
+                    <option value={4}>☆☆☆☆</option>
+                    <option value={3}>☆☆☆</option>
+                    <option value={2}>☆☆</option>
+                    <option value={1}>☆</option>
+                </select>
+                <hr className="header-bar"/>
+                <h3>Current scene:</h3>
+                <div className="current-scene">
                 { this.state.currentScene ?
                     <div>{ this.state.currentScene.text }</div> : ''
                 }
                 </div>
-                <ul>
+                <h3>What do you do?</h3>
+                <ul className="scene-options">
                 {this.state.currentScene.options.map(function(option, i){
                     return(<li key={i}>
-                        <a href="#" onClick={() => handler(1)}>{option.text}</a>
+                        <a href="#" onClick={() => handler(option.to)}>{option.name}</a>
                     </li>);
                 })}
                 </ul>
@@ -52,7 +65,8 @@ class Game extends Component {
 }
 Game.propTypes = {
     currentGame: PropTypes.object,
-    activeGameId: PropTypes.object
+    activeGameId: PropTypes.object,
+    handlerVote: PropTypes.func
 };
 
 export default createContainer((props) => {

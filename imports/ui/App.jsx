@@ -19,24 +19,32 @@ class App extends Component {
         }
         this.handler = this.handler.bind(this)
         this.create = this.create.bind(this)
+        this.submit = this.submit.bind(this)
+        this.handleVote = this.handleVote.bind(this)
     }
 
-    componentDidMount() {
-        // Marquee('h3');
+    handleVote(evt) {
+      Games.update(this.state.activeGameId, {
+        $inc: { sum: parseInt(evt.target.value), votes: 1 },
+      });
     }
 
     handler(someArg) {
         this.setState({
           activeGameId: someArg
         });
-
-        console.log(someArg);
-
-        alert(typeof(someArg));
     }
 
     create() {
       this.setState({ creating: true });
+    }
+
+    submit(game) {
+      game.creator = this.props.currentUser.username;
+      console.log(game);
+      var id = Games.insert(game);
+      this.setState({ creating: false,
+      activeGameId: undefined });
     }
     
     render(){
@@ -69,7 +77,7 @@ class App extends Component {
 
                 <div className="app-body">
                 { this.state.creating ?
-                    <CreateGame/> :
+                    <CreateGame handler={this.submit}/> :
                     <div>
                         { this.props.currentUser ?
                             <button onClick={this.create}> CREATE NEW GAME</button> :
@@ -77,7 +85,7 @@ class App extends Component {
                         }
                         <hr className="header-bar"/>
                         { this.state.activeGameId ?
-                            <Game activeGameId={this.state.activeGameId} /> : 
+                            <Game activeGameId={this.state.activeGameId} handlerVote={this.handleVote}/> : 
                             <Leaderboard games={this.props.games} handler={this.handler}/>
                         }
                     </div>

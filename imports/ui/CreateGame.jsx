@@ -6,15 +6,22 @@ class CreateGame extends Component {
     super();
     this.state = {
       name: '',
+      description: '',
+      sum: 0,
+      votes: 0,
       scenes: [{
         text: '',
-        options: [{ name: '' , to: ''}],
+        options: [{ name: '' , to: '0'}],
       }],
     };
   }
 
   handleNameChange = (evt) => {
     this.setState({ name: evt.target.value });
+  }
+
+  handleDescriptionChange = (evt) => {
+    this.setState({ description: evt.target.value });
   }
 
   handleSceneTextChange = (idx) => (evt) => {
@@ -83,7 +90,7 @@ class CreateGame extends Component {
     const newScenes = this.state.scenes.map((scene, sidx) => {
       if (idx !== sidx) return scene;
       else {
-        const newOptions = scene.options.concat([{ name: '' , to: ''}])
+        const newOptions = scene.options.concat([{ name: '' , to: '0'}])
         scene.options = newOptions;
         return scene;
       }
@@ -110,12 +117,24 @@ class CreateGame extends Component {
   }
 
   render() {
+    const handler = this.props.handler;
     return (
       <form onSubmit={this.handleSubmit}>
         <h3>CREATING GAME:</h3>
+        <input
+          type="text"
+          placeholder={`game name`}
+          value={this.state.name}
+          onChange={this.handleNameChange}
+        /><br/>
+        <textarea
+          placeholder={`game description`}
+          value={this.state.description}
+          onChange={this.handleDescriptionChange}
+        ></textarea>
 
         {this.state.scenes.map((scene, idx) => (
-          <div className="scene">
+          <div className="scene" key={idx}>
             <h4>Scene ${idx + 1}</h4>
             <textarea
               placeholder={`scene ${idx + 1} text`}
@@ -126,7 +145,7 @@ class CreateGame extends Component {
             <button type="button" onClick={this.handleAddOption(idx)} className="small">Add Action</button>
           
           {scene.options.map((option, idxo) => (
-            <div className="option">
+            <div className="option" key={idxo}>
               <input
                 type="text"
                 placeholder={`action`}
@@ -135,7 +154,7 @@ class CreateGame extends Component {
               />
               <select onChange={this.handleOptionToChange(idx, idxo)} value={option.to}>
                 {this.state.scenes.map((scene, idx) => (
-                  <option value={idx}>takes you to: scene ${idx + 1}</option>
+                  <option value={idx} key={idx}>takes you to: scene ${idx + 1}</option>
                 ))}
               </select>
               <button type="button" onClick={this.handleRemoveOption(idx, idxo)} className="small">-</button>
@@ -144,10 +163,14 @@ class CreateGame extends Component {
           </div>
         ))}
         <button type="button" onClick={this.handleAddScene} className="small">Add Scene</button>
-        <button>Incorporate</button>
+        <button onClick={() => handler(this.state)}>Incorporate</button>
       </form>
     )
   }
 }
+
+CreateGame.propTypes = {
+  handler: PropTypes.func.isRequired
+};
 
 export default CreateGame;
