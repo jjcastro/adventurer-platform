@@ -1,3 +1,3 @@
-# Multiplayer Snake Game
+# adventurer-platform
 
-Multiplayer snake game built using Meteor + React, with real-time gameplay for 2 people, leaderboards and scores.
+A platform for creating, playing and rating text adventure games online. Built with Meteor + React.
