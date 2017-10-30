@@ -28,7 +28,7 @@ class App extends Component {
       //   $inc: { sum: parseInt(evt.target.value), votes: 1 },
       // });
 
-      Meteor.call('games.addScore', this.state.activeGameId, newScore);
+      Meteor.call('games.addScore', this.state.activeGameId, parseInt(evt.target.value));
     }
 
     handler(someArg) {
