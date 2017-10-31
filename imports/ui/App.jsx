@@ -21,6 +21,7 @@ class App extends Component {
         this.create = this.create.bind(this)
         this.submit = this.submit.bind(this)
         this.handleVote = this.handleVote.bind(this)
+        this.handleBack = this.handleBack.bind(this)
     }
 
     handleVote(evt) {
@@ -48,6 +49,12 @@ class App extends Component {
       Meteor.call('games.insert', game);
       this.setState({ creating: false,
       activeGameId: undefined });
+    }
+
+    handleBack() {
+      this.setState({
+          activeGameId: undefined
+        });
     }
     
     render(){
@@ -83,8 +90,8 @@ class App extends Component {
                     <CreateGame handler={this.submit}/> :
                     <div>
                         { this.props.currentUser ?
-                            <button onClick={this.create}> CREATE NEW GAME</button> :
-                            <h3 className="Invitation">SIGN IN TO CREATE / PLAY GAMES!</h3>
+                            <div><button onClick={this.create}> CREATE NEW GAME</button> { this.state.activeGameId ? <button onClick={this.handleBack}>GO BACK HOME</button> : '' }</div> :
+                            <h3 className="Invitation">SIGN IN TO CREATE GAMES!</h3>
                         }
                         <hr className="header-bar"/>
                         { this.state.activeGameId ?
