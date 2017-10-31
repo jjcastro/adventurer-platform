@@ -24,10 +24,6 @@ class App extends Component {
     }
 
     handleVote(evt) {
-      // Games.update(this.state.activeGameId, {
-      //   $inc: { sum: parseInt(evt.target.value), votes: 1 },
-      // });
-
       Meteor.call('games.addScore', this.state.activeGameId, parseInt(evt.target.value));
     }
 
@@ -43,8 +39,6 @@ class App extends Component {
 
     submit(game) {
       game.creator = this.props.currentUser.username;
-      console.log(game);
-      // var id = Games.insert(game);
       Meteor.call('games.insert', game);
       this.setState({ creating: false,
       activeGameId: undefined });
