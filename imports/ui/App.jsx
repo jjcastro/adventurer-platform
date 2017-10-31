@@ -83,12 +83,13 @@ class App extends Component {
                 `}</pre>
                 </header>
                 
-                <div className="marquee-bkg"><marquee>WHATEVER OMG ILY LMAO WTF PPL IDK TBH BTW THX SMH FFS AMA FML TBT JK IMO YOLO ROFL MCM IKR FYI BRB GG IDC TGIF NSFW ICYMI STFU WCW IRL</marquee></div>
+                
 
                 <div className="app-body">
                 { this.state.creating ?
                     <CreateGame handler={this.submit}/> :
                     <div>
+                         <hr className="header-bar"/>
                         { this.props.currentUser ?
                             <div><button onClick={this.create}> CREATE NEW GAME</button> { this.state.activeGameId ? <button onClick={this.handleBack}>GO BACK HOME</button> : '' }</div> :
                             <h3 className="Invitation">SIGN IN TO CREATE GAMES!</h3>
